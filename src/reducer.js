@@ -1,31 +1,37 @@
 const initialState = {
     counterList: [
         {
-        id: 1,
-        counterValue: 4,
-        counterName: 'First counter'
+            id: 1,
+            edit: false,
+            counterValue: 4,
+            counterName: 'First counter'
         },
         {
-        id: 2,
-        counterValue: 4,
-        counterName: 'Second counter'
+            id: 2,
+            edit: true,
+            counterValue: 4,
+            counterName: 'Second counter'
         }
-]
+    ]
 };
 
 const counterPlus = ({counterList, id}) => {
-    return counterList.map(el => ( el.id === id ? {...el, counterValue: el.counterValue + 1} : el ));
+    return counterList.map(el => (el.id === id ? {...el, counterValue: el.counterValue + 1} : el));
 };
 
 const counterMinus = ({counterList, id}) => {
-    return counterList.map(el => ( el.id === id ? {...el, counterValue: el.counterValue - 1} : el ));
+    return counterList.map(el => (el.id === id ? {...el, counterValue: el.counterValue - 1} : el));
 };
 
 const counterRemove = ({counterList, id}) => {
-    return counterList.filter(el => el.id !== id );
+    return counterList.filter(el => el.id !== id);
 };
 
-export default function counter (state = initialState, action) {
+const counterEdit = ({counterList, id}) => {
+    return counterList.map(el => (el.id === id ? {...el, edit: !el.edit} : el));
+};
+
+export default function counter(state = initialState, action) {
     switch (action.type) {
         case 'COUNTER_PLUS' :
             return {...state, counterList: counterPlus({counterList: state.counterList, id: action.payload})};
@@ -35,6 +41,9 @@ export default function counter (state = initialState, action) {
 
         case 'REMOVE' :
             return {...state, counterList: counterRemove({counterList: state.counterList, id: action.payload})};
+
+        case 'EDIT' :
+            return {...state, counterList: counterEdit({counterList: state.counterList, id: action.payload})};
 
         default:
             return state;

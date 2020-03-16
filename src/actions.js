@@ -10,9 +10,13 @@ export function counterRemove(id) {
     return { type: 'REMOVE', payload: id}
 }
 
-
-export function counterIncOne(counterId) {
-    return (dispatch) => {
-        dispatch({type: 'COUNTER_INC_ONE', payload: counterId})
-    }
+export function counterEdit(id) {
+    return { type: 'EDIT', payload: id}
 }
+
+// export function counterIncOne(counterId) {
+//     return (dispatch) => {
+//         dispatch({type: 'COUNTER_INC_ONE', payload: counterId})
+//     }
+// }
+
